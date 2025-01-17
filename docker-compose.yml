@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  springboot-app:
+    build:
+      context: ./Test_Backend_JAVA
+      dockerfile: Dockerfile
+    image: app-back
+    container_name: backend
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./src:/app/src
+      - ./target:/app/target
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    restart: always
+    networks:
+      - app_network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: gpro
+      MYSQL_USER: guser
+      MYSQL_PASSWORD: guser
+      MYSQL_ROOT_PASSWORD: rootpassword
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 30s
+      timeout: 25s
+      retries: 5
+    
+
+networks:
+  app_network:
+    driver: bridge
