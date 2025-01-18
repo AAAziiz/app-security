@@ -3,7 +3,7 @@ version: "3.8"
 services:
   springboot-app:
     build:
-      context: ./Test_Backend_JAVA
+      context: .
       dockerfile: Dockerfile
     image: app-back
     container_name: backend
