@@ -37,23 +37,11 @@ pipeline {
                
 
         
-
-        stage('OWASP Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'OWASP-DC'
-            }
-        }
-
-        stage('Publish OWASP Dependency Check Report') {
-            steps {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'target',
-                    reportFiles: 'dependency-check-report.html',
-                    reportName: 'OWASP Dependency Check Report'
-                ])
+        
+                stage("OWASP Dependency Check"){
+               steps{
+                dependencyCheck additionalArguments: '--scan ./ --format XML ', odcInstallation: 'OWASP-DC'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
     
