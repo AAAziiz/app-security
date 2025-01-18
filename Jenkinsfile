@@ -20,9 +20,9 @@ pipeline {
         stage("Sonarqube Analysis "){ 
                     steps{
                         withSonarQubeEnv('Sonarqube') {
-                            sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=sonar-jenkins-project \
+                            sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=sonar-security-check \
                             -Dsonar.java.binaries=. \
-                            -Dsonar.projectKey=sonar-jenkins-project'''
+                            -Dsonar.projectKey=sonar-security-check'''
                         }
                     }
                 }
