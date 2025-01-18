@@ -27,18 +27,20 @@ pipeline {
                     }
                 }
 
-                /* stage("quality gate"){
+                /*stage("quality gate"){
                     steps {
                         script {
                           waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
                         }
                    }
-                */ //}
+                *///}
                
 
-       stage('OWASP Dependency Check') {
+        
+
+        stage('OWASP Dependency Check') {
             steps {
-                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP-DC'
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'OWASP-DC'
             }
         }
 
@@ -54,6 +56,7 @@ pipeline {
                 ])
             }
         }
+    
 
                
         
@@ -62,7 +65,7 @@ pipeline {
 
           stage('Build and start Docker Compose Containers') {
              steps {
-                    sh 'docker-compose up -d' 
+                    sh 'docker-compose up -d'
                 }
             }
 

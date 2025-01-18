@@ -6,3 +6,4 @@ FROM openjdk:17-alpine  AS production
 ARG JAR_FILE=/home/app/target/backend-0.0.1-SNAPSHOT.jar
 COPY --from=build ${JAR_FILE} application.jar
 ENTRYPOINT ["java", "-jar", "application.jar"]
+
