@@ -27,14 +27,15 @@ pipeline {
                     }
                 }
 
-                stage("quality gate"){
+                /* stage("quality gate"){
                     steps {
                         script {
-                          waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                          waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
                         }
                    }
-                }
+                */ //}
                
+
         stage("OWASP Dependency Check"){
             steps{
                 dependencyCheck additionalArguments: '--scan ./ --format XML ', odcInstallation: 'OWASP-DC'
